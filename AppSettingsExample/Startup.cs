@@ -20,7 +20,7 @@ namespace AppSettingsExample
         {
             
             var config = new ConfigurationBuilder()
-                .AddEntityFrameworkConfig(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                .AddEntityFrameworkConfig();
 
             configuration.Bind(config);
             Configuration = configuration;

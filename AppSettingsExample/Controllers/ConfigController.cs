@@ -18,9 +18,11 @@ namespace AppSettingsExample.Controllers
         IConfiguration _config;
         public ConfigController(IConfiguration config)
         {
-            _config = new ConfigurationBuilder()
-                .AddEntityFrameworkConfig(o => o.UseSqlServer(config.GetConnectionString("DefaultConnection")))
-                .Build();
+            //_config = new ConfigurationBuilder()
+            //    .AddEntityFrameworkConfig(o => o.UseSqlServer(config.GetConnectionString("DefaultConnection")))
+            //    .Build();
+
+            _config = config;
         }
 
         [HttpGet]
@@ -29,7 +31,7 @@ namespace AppSettingsExample.Controllers
         {
 
 
-            return Json(new {Key1=_config.GetValue<string>("key1"), Key2=_config.GetValue<string>("key2") });
+            return Json(new {Key1=_config.GetValue<string>("key1"), Key2=_config.GetValue<string>("key2"), Key3= _config.GetValue<string>("key3") });
         }
     }
 }

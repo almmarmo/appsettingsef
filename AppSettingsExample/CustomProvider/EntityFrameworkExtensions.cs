@@ -9,9 +9,11 @@ namespace AppSettingsExample.CustomProvider
 {
     public static class EntityFrameworkExtensions
     {
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, Action<DbContextOptionsBuilder> setup)
+        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder)
         {
-            return builder.Add(new EFConfigSource(setup));
+            var config = builder.Build();
+            
+            return builder.Add(new EFConfigSource(o => o.UseSqlServer(config.GetConnectionString("DefaultConnection"))));
         }
     }
 }
