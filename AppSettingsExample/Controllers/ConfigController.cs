@@ -22,6 +22,7 @@ namespace AppSettingsExample.Controllers
             //    .AddEntityFrameworkConfig(o => o.UseSqlServer(config.GetConnectionString("DefaultConnection")))
             //    .Build();
 
+
             _config = config;
         }
 
@@ -32,6 +33,17 @@ namespace AppSettingsExample.Controllers
 
 
             return Json(new {Key1=_config.GetValue<string>("key1"), Key2=_config.GetValue<string>("key2"), Key3= _config.GetValue<string>("key3") });
+        }
+
+        [HttpGet]
+        [Route("reload")]
+        public IActionResult Reload()
+        {
+            var root = _config as ConfigurationRoot;
+            var ef = root.Providers.FirstOrDefault(x => x.GetType() == typeof(EFConfigProvider));
+            ef.Load();
+
+            return Json(new { status = "ok" });
         }
     }
 }

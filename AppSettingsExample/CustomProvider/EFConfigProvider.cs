@@ -29,13 +29,15 @@ namespace AppSettingsExample.CustomProvider
                     : dbContext.Values.ToDictionary(c => c.Id, c => c.Value);
             }
         }
+      
 
         private IDictionary<string, string> CreateAndSaveDefaultValues(ConfigurationContext dbContext)
         {
             var configValues = new Dictionary<string, string>
             {
                 {"key1", "value_from_ef_1" },
-                {"key2", "value_from_ef_2" }
+                {"key2", "value_from_ef_2" },
+                {"leve1:key1", "value of level1 key1" }
             };
             dbContext.Values.AddRange(configValues
                 .Select(kvp => new ConfigurationValue() { Id = kvp.Key, Value = kvp.Value })
